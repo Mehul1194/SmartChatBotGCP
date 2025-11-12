@@ -1,3 +1,4 @@
+import os
 from fastapi import FastAPI
 from fastapi import Request
 from fastapi.responses import JSONResponse
@@ -9,6 +10,11 @@ import generic_helper
 app = FastAPI()
 
 inprogress_orders = {}
+
+if __name__ == "__main__":
+    import uvicorn
+    port = int(os.environ.get("PORT", 8080))  # fallback to 8080
+    uvicorn.run(app, host="0.0.0.0", port=port)
 
 @app.post("/")
 async def handle_request(request: Request):
